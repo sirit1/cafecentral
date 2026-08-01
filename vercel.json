@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "build": {
+    "command": "npm run build",
+    "outputDirectory": ".next"
+  },
+  "devCommand": "npm run dev",
+  "env": {
+    "NEXT_PUBLIC_SUPABASE_URL": "https://xxxxx.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJ...",
+    "NEXT_PUBLIC_STRIPE_KEY": "pk_test_...",
+    "STRIPE_SECRET_KEY": "sk_test_...",
+    "NEXT_PUBLIC_GOOGLE_MAPS_API_KEY": "your_google_maps_api_key_here"
+  }
+}
