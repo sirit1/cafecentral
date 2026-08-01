@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import './globals.css';
 
 
 // TODO: Remove CheckoutProvider import once cart/checkout/wishlist features are implemented
