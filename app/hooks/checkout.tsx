@@ -28,7 +28,12 @@ export interface CheckoutOrder {
 
 export interface CheckoutState {
   orders: CheckoutOrder[];
+  setOrders: React.Dispatch<React.SetStateAction<CheckoutOrder[]>>;
   activeOrderId: string | null;
+  setActiveOrderId: React.Dispatch<React.SetStateAction<string | null>>;
+  isLoading: boolean;
+  initialized: boolean;
+  setInitialized: React.Dispatch<React.SetStateAction<boolean>>;
   addItemToOrder: (orderId: string, productId: string, quantity: number) => void;
   createNewOrder: (items: OrderItem[]) => CheckoutOrder | null;
   checkoutWithStripe: (stripeUrl: string, orderId: string) => Promise<void>;
@@ -37,6 +42,7 @@ export interface CheckoutState {
   processStripeReturn: (sessionId: string) => CheckoutOrder | null;
   getActiveOrder: () => CheckoutOrder | null;
   refreshOrders: () => Promise<void>;
+  clearCart: () => void;
 }
 
 const CheckoutContext = createContext<CheckoutState | null>(null);
@@ -73,7 +79,7 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
         
         if (data.length > 0) {
           setOrders(data);
-          const newActiveOrder = data.find(o => o.id === activeOrderId) || data[0];
+          const newActiveOrder = data.find((o: CheckoutOrder) => o.id === activeOrderId) || data[0];
           if (newActiveOrder && newActiveOrder.id === activeOrderId) {
             setActiveOrderId(newActiveOrder.id);
           }
@@ -101,7 +107,7 @@ export function CheckoutProvider({ children }: { children: React.ReactNode }) {
         )};
       }
       
-      return { ...order, items: [...order.items, { productId, name: 'Producto', price: 0, quantity }], itemsDirty: true };
+      return { ...order, items: [...order.items, { productId, name: 'Producto', price: 0, quantity }] };
     }));
     
     if (activeOrderId !== orderId) setActiveOrderId(orderId);

@@ -1,6 +1,4 @@
-import type { Config } from 'tailwindcss';
-
-const config: Config = {
+const config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -84,7 +82,7 @@ const config: Config = {
             backgroundPosition: '-100% 0',
           },
         },
-        spin-slow: {
+        'spin-slow': {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         }
@@ -108,10 +106,10 @@ const config: Config = {
         'sunset-gradient': 'linear-gradient(135deg, #f093fb 0%, #fbc2eb 25%, #a18cd1 75%, #fbc2eb 100%)',
       },
     },
-    plugins: [
-      require('tailwindcss-animate'),
-    ],
   },
+  plugins: [
+    require('tailwindcss-animate'),
+  ],
   safelist: [
     'dark',
     'dark-mode',
