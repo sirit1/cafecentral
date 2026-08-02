@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
+    --primary: 38 92% 53%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 45 96% 50%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 210 40% 98%;
+    --muted-foreground: 215 20% 65%;
+    --accent: 38 92% 53%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --border: 210 40% 98%;
+    --input: 210 40% 98%;
+    --ring: 38 92% 53%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 95%;
+    --card: 222 47% 6%;
+    --card-foreground: 210 40% 95%;
+    --primary: 38 92% 53%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 45 96% 50%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 215 25% 65%;
+    --muted-foreground: 215 15% 65%;
+    --accent: 38 92% 53%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --border: 215 15% 20%;
+    --input: 215 15% 20%;
+    --ring: 38 92% 53%;
+  }
+}
+
+@layer components {
+  * {
+    @apply box-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "cv11", "ss01", "ss02", "ss03", "salt";
+  }
+}
+
+/* Glassmorphism utilities */
+.glass {
+  @apply bg-black/40 backdrop-blur-md border border-white/10;
+}
+
+.glass-card {
+  @apply glass rounded-2xl p-6 shadow-2xl;
+}
+
+.glass-menu {
+  @apply glass bg-black/50 backdrop-blur-sm border border-white/20;
+}
+
+/* Glow effect */
+.glow-button {
+  @apply bg-gradient-to-r from-amber-500 to-orange-500;
+  animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5), 0 0 40px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.8), 0 0 60px rgba(245, 158, 11, 0.5);
+  }
+}
+
+/* Animated background patterns */
+.animated-bg {
+  background: linear-gradient(135deg, #0d060d 0%, #1a0f1a 50%, #0d060d 100%);
+  background-image: 
+    radial-gradient(rgba(245, 158, 11, 0.08) 0px, transparent 40px),
+    radial-gradient(rgba(251, 146, 60, 0.08) 0px, transparent 40px),
+    radial-gradient(rgba(236, 72, 153, 0.05) 0px, transparent 40px);
+  background-size: 80px 80px;
+  animation: moveGradient 15s ease infinite;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Smooth fade-in animation */
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card hover lift effect */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Section transition */
+.section-enter {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.section-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section-exit {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+/* Text gradient */
+.text-gradient {
+  @apply bg-gradient-to-r from-amber-400 via-orange-400 to-pink-400;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Badge styles */
+.badge-primary {
+  @apply px-3 py-1 rounded-full text-sm font-medium bg-primary/20 text-primary border border-primary/30;
+}
+
+.badge-secondary {
+  @apply px-3 py-1 rounded-full text-sm font-medium bg-secondary/20 text-secondary-foreground border border-secondary/30;
+}
+
+/* Button styles */
+.btn-primary {
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 bg-primary hover:bg-primary/90 text-white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5), 0 0 20px rgba(251, 146, 60, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  @apply px-6 py-3 rounded-xl font-medium transition-all duration-300 bg-transparent hover:bg-white/5 text-white border border-white/20;
+}

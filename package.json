@@ -1,7 +1,7 @@
 {
   "name": "cafe-central",
   "version": "1.0.0",
-  "description": "Menú interactivo - Café Central - Especialidad y Vanguardia en Chiloé",
+  "description": "Café Central - Experiencia Premium de Café de Especialidad en Chiloé",
   "scripts": {
     "dev": "next dev -p 3000",
     "build": "next build",
@@ -9,39 +9,26 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "14.0.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.0",
+    "lucide-react": "^0.400.0",
+    "next": "14.2.0",
+    "next-themes": "^0.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "framer-motion": "^10.16.16",
-    "lucide-react": "^0.263.0",
-    "tailwindcss": "^3.3.0",
-    "classnames": "^2.3.2",
-    "stripe": "^14.0.0",
-    "@supabase/supabase-js": "^2.30.0",
-    "@react-google-maps/api": "^2.19.0"
+    "tailwind-merge": "^2.2.0",
+    "tailwindcss": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
-    "@types/react": "18.2.0",
-    "@types/react-dom": "18.2.0",
-    "typescript": "^5.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "autoprefixer": "^10.4.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "14.2.0",
     "postcss": "^8.4.0",
-    "tailwindcss-animate": "^1.0.7"
-  },
-  "keywords": [
-    "cafe",
-    "especialidad",
-    "chiloe",
-    "cafeteria",
-    "menu",
-    "pasteleria",
-    "vegan",
-    "nextjs",
-    "react",
-    "tailwindcss",
-    "framer-motion"
-  ],
-  "author": "Café Central",
-  "license": "MIT"
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.0.0"
+  }
 }

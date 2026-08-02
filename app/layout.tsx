@@ -1,40 +1,49 @@
-import type { Metadata } from 'next';
+import type { Metadata } from "next/dist/types";
+import { Inter } from "next/font/google";
+import "./globals.css";
+import { ThemeProvider } from "./components/providers/ThemeProvider";
 
-
-// TODO: Remove CheckoutProvider import once cart/checkout/wishlist features are implemented
-// For now, using a no-op provider for the menu-only version
-const NoOpCheckoutProvider = ({ children }: { children: React.ReactNode }) => {
-  return <>{children}</>;
-};
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
-  title: 'Café Central - Especialidad y Vanguardia en Chiloé',
-  description: 'Descubre el mundo del café de especialidad en la Isla de Chiloé. Una experiencia gastronómica única con nuestros cafés, pasteles de autor y opciones los productos veganos más innovadores de la región.',
-  keywords: ['café', 'especialidad', 'chiloe', 'cafeteria', 'menu', 'pasteleria', 'vegan', 'nextjs'],
-  authors: [{ name: 'Café Central' }],
+  title: "Café Central | La Experiencia del Buen Café en Chiloé",
+  description:
+    "Café de especialidad en la Isla de Chiloé. Descubre el mejor grano de nuestra tierra. De la sierra a tu taza.",
+  keywords: [
+    "café",
+    "café de especialidad",
+    "Chiloé",
+    "cafetería",
+    "café gourmet",
+    "granos de especialidad",
+    "pastelería",
+  ],
+  robots: "index, follow",
   openGraph: {
-    title: 'Café Central - Especialidad y Vanguardia en Chiloé',
-    description: 'Una experiencia gastronómica única en la Isla de Chiloé',
-    type: 'website',
-    locale: 'es_CL',
-  },
-  robots: {
-    index: true,
-    follow: true,
+    title: "Café Central | La Experiencia del Buen Café en Chiloé",
+    description:
+      "Café de especialidad en la Isla de Chiloé. Descubre el mejor grano de nuestra tierra.",
+    type: "website",
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<React.PropsWithChildren<{}>>): React.JSX.Element {
   return (
-    <html lang="es" className="dark antialiased">
-      <body className="bg-black text-white antialiased font-display">
-        <NoOpCheckoutProvider>
+    <html lang="es" suppressHydrationWarning>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange={true}
+        >
           {children}
-        </NoOpCheckoutProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
