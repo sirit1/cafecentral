@@ -6,7 +6,7 @@
 
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { CheckCircle, Clock, Activity, Check, XCircle } from 'lucide-react';
+import { CheckCircle, Clock, Activity, Check, ShoppingBag } from 'lucide-react';
 import { useCheckout } from '../hooks/checkout';
 
 type OrderStatus = 'pending' | 'processing' | 'confirmed' | 'ready' | 'completed';
@@ -57,14 +57,13 @@ interface OrderTrackerProps {
 }
 
 export function OrderTracker({ activeOrderId = null, isLoading = false }: OrderTrackerProps) {
-  const { orders, activeOrder, isLoading: contextLoading, getActiveOrder, refreshOrders } = useCheckout();
+  const { orders, activeOrderId: contextActiveOrderId, isLoading: contextLoading, getActiveOrder, refreshOrders } = useCheckout();
 
-  // Override props with context values if not provided
-  const useOrders = typeof activeOrderId !== 'undefined' ? activeOrderId : null;
-  const localLoading = typeof isLoading !== 'undefined' ? isLoading : contextLoading;
+  const localLoading = isLoading || contextLoading;
+  const selectedOrderId = activeOrderId ?? contextActiveOrderId;
 
   // Get active order from context or props
-  const activeOrderObj = activeOrderId ? getActiveOrder() : orders.find(o => o.id === activeOrderId) || orders[0];
+  const activeOrderObj = selectedOrderId ? orders.find(o => o.id === selectedOrderId) || getActiveOrder() : orders[0];
   
   // Get completed orders (for history)
   const completedOrders = orders.filter(o => o.status === 'completed');
@@ -207,9 +206,6 @@ export function OrderTracker({ activeOrderId = null, isLoading = false }: OrderT
             {activeOrderObj.status === 'ready' && (
               <p>🎉 ¡Tu pedido está listo para recoger! <br/> Ven a visitarnos en la Isla de Chiloé. 🏝️</p>
             )}
-            {activeOrderObj.status === 'completed' && (
-              <p>¡Gracias por tu compra! 🎊 Tu experiencia en Café Central ha sido especial.</p>
-            )}
           </motion.div>
 
           {/* Actions */}
@@ -223,19 +219,16 @@ export function OrderTracker({ activeOrderId = null, isLoading = false }: OrderT
                 🏪 Recoger pedido
               </motion.button>
             )}
-            {activeOrderObj.status !== 'completed' && (
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => {
-                  // Scroll to top to see menu
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="flex-1 py-3 rounded-xl bg-white/10 text-white font-bold text-sm hover:bg-white/20 transition-all"
-              >
-                🛍️ Continuar comprando
-              </motion.button>
-            )}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="flex-1 py-3 rounded-xl bg-white/10 text-white font-bold text-sm hover:bg-white/20 transition-all"
+            >
+              🛍️ Continuar comprando
+            </motion.button>
           </div>
         </div>
       )}

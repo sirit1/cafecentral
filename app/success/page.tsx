@@ -8,11 +8,19 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle, ArrowLeft, ShoppingBag, Star } from 'lucide-react';
 
+type SuccessOrder = {
+  id: string;
+  createdAt: string;
+  status: 'pending' | 'processing' | 'confirmed' | 'ready' | 'cancelled' | 'completed';
+  total: number;
+  items: { productId: string; name: string; price: number; quantity: number }[];
+};
+
 export default function SuccessPage() {
   const [sessionId, setSessionId] = useState<string | null>(null);
-  const [order, setOrder] = useState(null);
+  const [order, setOrder] = useState<SuccessOrder | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     // Read sessionId from URL query params
@@ -33,13 +41,7 @@ export default function SuccessPage() {
           if (result.order) {
             setOrder(result.order);
           } else {
-            // Fetch from CheckoutContext
-            fetch('/hooks/checkout.ts')
-              .then(res => res.json())
-              .then(module => {
-                const { useCheckout } = module;
-                // This will be handled by the parent page providing the context
-              });
+            setError('No se encontró la orden asociada a esta sesión.');
           }
         })
         .catch(err => {
@@ -190,7 +192,7 @@ export default function SuccessPage() {
             </h2>
             
             <div className="space-y-3">
-              {order.items.map((item, index) => (
+              {order.items.map((item, index: number) => (
                 <motion.div
                   key={item.productId}
                   initial={{ opacity: 0, y: 10 }}
